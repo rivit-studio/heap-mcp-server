@@ -1,0 +1,82 @@
+# Bulk Track
+
+If you have many custom track events to send at once, you can use this API.
+
+This API has the same endpoint as [Track](https://developers.heap.io/reference#track-1). The only difference is that it takes an `events` array of objects with a max of 1000 events per request.
+
+To avoid duplicate events, use the same `idempotency_key` body parameter listed on the [Track](https://developers.heap.io/reference#track-1) page.
+
+```curl
+curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+  "app_id": "12343283",
+  "events": [{
+    "identity": "alice@gmail.com",
+    "timestamp": "2016-05-10T22:21:56+00:00",
+    "event": "Phone Call",
+    "properties": {
+      "Sales Rep": "Joe Smith",
+      "Duration" : "15 minutes",
+      "Purpose" : "Discovery Call"
+    }
+  },
+  {
+    "identity": "mike@gmail.com",
+    "timestamp": "2016-05-10T22:23:56+00:00",
+    "event": "Phone Call",
+    "properties": {
+      "Sales Rep": "Susie Smith",
+      "Duration" : "30 minutes",
+      "Purpose" : "Discovery Call"
+    }
+  }]
+  }'\
+  https://heapanalytics.com/api/track
+```
+
+> ❗️ Limitations
+>
+> Please note: `fetch`, `jQuery`, and `XMLHttpRequest` options are not currently supported.
+
+> 🚧 If your Heap data is in an EU datacenter, the correct endpoint is:
+>
+> [https://c.eu.heap-api.com/api/track](https://c.eu.heap-api.com/api/track) (**NOT** heapanalytics.com)
+
+<Callout icon="📘" theme="info">
+  Requests are limited to 1000 events per minute per identity per app\_id and 15,000 events per minute per app\_id.
+</Callout>
+
+## Leverage properties with custom events
+
+We recommend naming custom events broadly and using properties to distinguish between different types of events. This makes analysis in Heap easier, and additional events can be labeled in Heap to create subsets of any broader events.
+
+:white\_check\_mark: For example, if you want to send error events into Heap, we recommend:
+
+`heap.track('Error', {message: 'Authentication Failed'});`
+
+`heap.track('Error', {message: 'Field Validation'});`
+
+:x: Instead of:
+
+`heap.track('Error: Authentication Failed');`
+
+`heap.track('Error: Field Validation');`
+
+<br />
+
+<HTMLBlock>
+  {`
+  <div id="heapCustom">
+    <strong>Did you find what you were looking for?</strong>
+    <br>
+    <a href="https://survey.nicereply.com/heap.api/docs/Bulk-Track?s=10">
+    <img alt="Thumb up" src="https://survey.nicereply.com/trackmaili/thumb_10.png">
+    </a>
+    <a href="https://survey.nicereply.com/heap.api/docs/Bulk-Track?s=1">
+      <img alt="Thumb down" src="https://survey.nicereply.com/trackmaili/thumb_1.png">
+    </a>
+  </div>
+  `}
+</HTMLBlock>

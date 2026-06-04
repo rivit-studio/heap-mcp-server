@@ -1,0 +1,53 @@
+name: Heap API watch
+
+# Detects upstream changes to the Heap endpoints this server depends on and
+# opens (or comments on) a tracking issue so maintainers can review.
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # every Monday 13:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check for Heap API drift
+        id: check
+        run: node scripts/check-heap-api.mjs
+        continue-on-error: true
+
+      - name: Open or update drift issue
+        if: steps.check.outcome == 'failure' && hashFiles('heap-api-diff.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh label create heap-api-drift --color FBCA04 \
+            --description "Upstream Heap API changed" 2>/dev/null || true
+          existing=$(gh issue list --state open --label heap-api-drift \
+            --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            echo "Updating existing issue #$existing"
+            gh issue comment "$existing" --body-file heap-api-diff.md
+          else
+            echo "Creating new drift issue"
+            gh issue create --title "Heap API drift detected" \
+              --label heap-api-drift --body-file heap-api-diff.md
+          fi
+
+      - name: Note unexpected failure
+        if: steps.check.outcome == 'failure' && hashFiles('heap-api-diff.md') == ''
+        run: |
+          echo "::warning::check-heap-api exited non-zero without a diff report (e.g. a fetch error). Review the logs."

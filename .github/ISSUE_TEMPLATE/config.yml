@@ -1,0 +1,12 @@
+# Update rivit-studio in the URLs below before publishing.
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/rivit-studio/heap-mcp-server/security/advisories/new
+    about: Please report security issues privately, not as a public issue. This includes anything involving credential handling or the unauthenticated HTTP transport.
+  - name: Questions & discussion
+    url: https://github.com/rivit-studio/heap-mcp-server/discussions
+    about: Ask questions or share ideas with the community.
+  - name: Heap API documentation
+    url: https://developers.heap.io
+    about: Official reference for Heap's server-side API behavior and limits.

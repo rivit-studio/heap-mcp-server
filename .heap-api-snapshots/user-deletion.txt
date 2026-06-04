@@ -1,0 +1,180 @@
+# User Deletion (Delete API)
+
+Use this API to delete users from your Heap workspace. This API requires an auth token, which you can generate.
+
+To delete a user from your **Heap account**, follow these instructions. These instructions apply to Heap data in both US and EU data centers.
+
+# Auth
+
+All endpoints require an `auth_token`, which is obtained through HTTP Basic Authentication of an `app_id` and `api_key`, where `app_id` is the username and `api_key` is the password:
+
+```
+    Authorization: Basic <app_id>:<api_key>
+```
+
+Admins can generate and retrieve an API key by navigating to Account > Manage > [Privacy & Security](https://heapanalytics.com/app/manage/privacy-and-security). If generated, the API key will be listed on that page. If it hasn't been generated yet, steps to generate a new API key are provided. For convenience, your app ID is also listed on this page.
+
+> 🚧 Environment ID must be correct
+>
+> The user deletion API checks all environments in your account for a matching user and deletes their records and data. The API auths using a combination of the environment id of your Main Production environment ( `app_id` ) and an api\_key. Using any other environment id in the request will result in an `Unauthorized` response.
+
+Once an `auth_token` is acquired, other endpoints can be accessed by passing the `auth_token` as a bearer token in the Authorization header:
+
+```
+    Authorization: Bearer <token>
+```
+
+# API Endpoints
+
+## POST `/api/public/v0/auth_token`
+
+This endpoint uses HTTP Basic Authentication to acquire a temporary `auth_token` from API credentials.  The returned `auth_token` is used for authentication on the other endpoints.
+
+**Request**
+
+* Headers
+  * Basic auth header: `app_id:api_key`
+
+**Response**
+
+* Code: 200 if credentials are valid.
+* Body:
+  * `err` (if unsuccessful)
+  * `access_token` (if successful)
+
+**Example**\
+Request:
+
+```
+    curl -X POST https://heapanalytics.com/api/public/v0/auth_token -u '<app_id>:<api_key>'
+```
+
+Response:
+
+```
+    { "access_token": "<access_token>" }
+```
+
+## POST `/api/public/v0/user_deletion`
+
+Submits users to be deleted from Heap, and returns a unique identifier for the request (`deletion_request_id`).  Up to 10,000 users can be submitted in a single request.
+
+**Request**
+
+* Body:
+  * `users[]`
+    * `user_id` or `identity`
+* Headers
+  * Bearer auth header: `auth_token`
+  * Content-type: `Application/json`
+
+**Response**
+
+* Status: 201 if successful, 401 if unauthorized
+
+*If unsuccessful:*
+
+* Body:
+  * `error` (if unsuccessful)
+  * `message` (human readable)
+  * Maybe other fields (symbolic reason, code, etc.)
+
+*If successful:*
+
+* Body:
+  * deletion\_request\_location: `https://heapanalytics.com/api/public/v0/deletion_status/<deletion_request_id>`
+  * deletion\_request\_id: `<deletion_request_id>`
+  * status: `<deletion_request_status>`
+
+**Example**
+
+Request:
+
+```curl
+curl -X POST https://heapanalytics.com/api/public/v0/user_deletion \
+        -H 'Authorization: Bearer <token>' \
+        -H 'Content-type: Application/json' \
+        -d '{ "users": [{ "user_id": 1 }, { "user_id": 2 }] }'
+```
+
+```curl
+curl -X POST https://heapanalytics.com/api/public/v0/user_deletion \
+        -H 'Authorization: Bearer <token>' \
+        -H 'Content-type: Application/json' \
+        -d '{ "users": [{ "identity": "alice@email.com" }, { "identity": "bob@email.com" }] }'
+```
+
+Response:
+
+```curl
+{
+  "deletion_request_location": "https://heapanalytics.com/api/public/v0/deletion_status/c93fae81-f67a-46d6-acf1-0c3ba1c3e5a6",
+  "deletion_request_id": "c93fae81-f67a-46d6-acf1-0c3ba1c3e5a6",
+  "status": "pending"
+}
+```
+
+## GET `/api/public/v0/deletion_status/:deletion_request_id`
+
+Fetches the status of the user deletions submitted in the request identified by `deletion_request_id`.
+
+**Request**
+
+* Headers
+  * Bearer auth header: `token`
+
+**Response**
+
+* Status: 200 if found, 404 if does not exist
+* Body:
+  * `deletion_request_id`
+  * `status` (‘pending’ or ‘complete’)
+
+**Example**\
+Request:
+
+```
+    curl -G https://heapanalytics.com/api/public/v0/deletion_status/<deletion_request_id> \
+        -H 'Authorization: Bearer <token>'
+```
+
+Response:
+
+```
+    {
+      "deletion_request_id": <deletion_request_id>,
+      "status": pending
+    }
+```
+
+# Errors
+
+Errors will manifest in the response code and on an `err` object in the response body.
+
+## Status Codes
+
+* `200` - The request completed successfully
+* `401` - Unauthorized.  Occurs when the credentials are invalid for a specific request (e.g. bad `api_key` when requesting an `auth_token`, or requesting a user deletion in an env that the supplied `auth_token` does not authorize)
+* `404` - Not found.  Occurs when requesting a `deletion_request_id` that does not exist, or belongs to an env the `auth_token` does not authorize.
+
+## `err` Object
+
+The `err` object will appear only when an error occurs, and will have the following properties:
+
+* `message` - A human-readable description of the error
+* Other properties *may* be present.
+
+<HTMLBlock>
+  {`
+  <div id="heapCustom">
+    <strong>Did you find what you were looking for?</strong>
+    <br>
+    <a href="https://survey.nicereply.com/heap.api/docs/User-Deletion?s=10">
+    <img alt="Thumb up" src="https://survey.nicereply.com/trackmaili/thumb_10.png">
+    </a>
+    <a href="https://survey.nicereply.com/heap.api/docs/User-Deletion?s=1">
+      <img alt="Thumb down" src="https://survey.nicereply.com/trackmaili/thumb_1.png">
+    </a>
+  </div>
+  `}
+</HTMLBlock>

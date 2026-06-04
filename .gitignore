@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+
+# Heap API drift report (generated; snapshots in .heap-api-snapshots/ ARE committed)
+heap-api-diff.md

@@ -1,0 +1,119 @@
+{
+  "info": {
+    "title": "server-side-api",
+    "version": "1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/add_account_properties": {
+      "post": {
+        "deprecated": false,
+        "description": "This API allows you to attach custom account properties to users. An account ID or use of our Salesforce integration is required for this to work. Note that, as your set of accounts and their properties change, you’ll need to periodically call this API with an account ID as well as any account-level properties.\n\nYou will need to configure the Account ID setting before using this API to send your account data into Heap. Instructions to complete this and all of the other steps to analyze account data are available in the [Account Health Analysis](https://help.heap.io/analysis-examples/analysis-features/account-health-analysis/) guide.\n\nOur Looker Actions integration allows you to quickly import property data into Heap. See the  [Looker Actions Integration guide](https://help.heap.io/integrations/other/looker-actions-integration/) to learn more.",
+        "operationId": "add-account-properties",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "account_id": {
+                    "description": "Used for single account updates only. An ID for this account.",
+                    "type": "string"
+                  },
+                  "accounts": {
+                    "description": "Used for bulk updates only. A list of objects with `account_id` and `properties` keys.",
+                    "items": {
+                      "properties": {
+                        "account_id": {
+                          "type": "string"
+                        },
+                        "properties": {
+                          "properties": {
+                            "example_name": {
+                              "default": "example_value",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "app_id": {
+                    "description": "The environment ID corresponding to one of your environments.",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "properties": {
+                    "description": "Used for single account updates only. An object with key-value properties you want associated with the account. Each key and property must either be a number or a string with fewer than 1024 characters.",
+                    "format": "json",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "app_id"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "OK%"
+                  }
+                }
+              }
+            },
+            "description": "200"
+          },
+          "400": {
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "error message"
+                  }
+                }
+              }
+            },
+            "description": "400"
+          }
+        },
+        "security": [],
+        "summary": "Add Account Properties",
+        "x-readme": {
+          "code-samples": [
+            {
+              "code": "curl -X POST https://heapanalytics.com/api/add_account_properties \\\n  -H \"Content-Type: application/json\" \\\n  -d '{ \n    \"app_id\": \"123456789\", \n    \"account_id\": \"Fake Company\",\n    \"properties\": {\n      \"is_in_good_standing\": \"true\",\n      \"revenue_potential\": \"123456\",\n      \"account_hq\": \"United Kingdom\",\n      \"subscription\": \"Monthly\"\n    }\n  }'\n",
+              "language": "curl",
+              "name": "Single Account Update"
+            },
+            {
+              "code": "curl -X POST https://heapanalytics.com/api/add_account_properties \\\n  -H \"Content-Type: application/json\" \\\n  -d '{ \n    \"app_id\": \"123456789\",\n    \"accounts\": [{\n      \"account_id\": \"Fake Account\",\n      \"properties\": {\n        \"is_in_good_standing\": \"true\",\n        \"revenue_potential\": \"123456\",\n        \"account_hq\": \"United Kingdom\",\n        \"subscription\": \"Monthly\"\n      }\n    }, {\n      \"account_id\": \"Other Account\",\n      \"properties\": {\n        \"is_in_good_standing\": \"false\",\n        \"will_churn\": \"true\",\n        \"account_hq\": \"Germany\",\n        \"subscription\": \"Yearly\"\n      }\n    }] \n  }'\n",
+              "language": "curl",
+              "name": "Bulk Account Updates"
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  },
+  "security": [
+    {}
+  ],
+  "servers": [
+    {
+      "url": "https://heapanalytics.com/"
+    }
+  ],
+  "x-readme-fauxas": true
+}

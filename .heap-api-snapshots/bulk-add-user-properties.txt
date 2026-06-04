@@ -1,0 +1,59 @@
+# Bulk Add User Properties
+
+If you have many custom user properties to attach all at once, you can use this API.
+
+This API has the same endpoint as [Add User Properties](https://developers.heap.io/reference#add-user-properties). The only difference is that it takes a `users` array of objects, with a max of 1000 users per request.
+
+```curl
+curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+  "app_id": "12345",
+  "users":[{
+    "identity": "alice@example.com",
+    "properties": {
+      "Role": "Admin",
+      "Vertical": "Ecommerce",
+      "email": "alice2@example2.com"
+      }
+  },
+   {"identity": "bob@example.com",
+    "properties": {
+      "Role": "User",
+      "Vertical": "Saas",
+      "email": "bob2@example2.com"
+      }
+  }]
+  }' \
+  https://heapanalytics.com/api/add_user_properties
+```
+
+> 👍 Important
+>
+> If you want to write your user's email into the built-in Email property, you must send the key lowercase as per the example above.
+>
+> Sending an email value with a non-lowercase key will create a new property to store this data.
+
+> 🚧 If your Heap data is in an EU datacenter, the correct endpoint is:
+>
+> [https://c.eu.heap-api.com/api/add\_user\_properties](https://c.eu.heap-api.com/api/add_user_properties) (**NOT** heapanalytics.com)
+
+> ❗️
+>
+> Please note: `fetch`, `jQuery`, and `XMLHttpRequest` options are not currently supported.
+
+<HTMLBlock>
+  {`
+  <div id="heapCustom">
+    <strong>Did you find what you were looking for?</strong>
+    <br>
+    <a href="https://survey.nicereply.com/heap.api/docs/Bulk-Add-User-Properties?s=10">
+    <img alt="Thumb up" src="https://survey.nicereply.com/trackmaili/thumb_10.png">
+    </a>
+    <a href="https://survey.nicereply.com/heap.api/docs/Bulk-Add-User-Properties?s=1">
+      <img alt="Thumb down" src="https://survey.nicereply.com/trackmaili/thumb_1.png">
+    </a>
+  </div>
+  `}
+</HTMLBlock>

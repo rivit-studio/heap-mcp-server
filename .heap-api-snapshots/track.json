@@ -1,0 +1,123 @@
+{
+  "info": {
+    "title": "server-side-api",
+    "version": "1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/track": {
+      "post": {
+        "description": "Use this API to send custom events to Heap server-side. We recommend using this for events that need to exactly match your backend, such as completed order transaction info, or events that are not available for Heap to capture on the client-side.<br><br>**NOTE: It is required that you use either the `identity` or `user_id` param, but not both.**",
+        "operationId": "track-1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "app_id": {
+                    "description": "The environment ID corresponding to one of your environments.",
+                    "type": "string"
+                  },
+                  "event": {
+                    "description": "The name of the server-side event. Limited to 1024 characters.",
+                    "type": "string"
+                  },
+                  "idempotency_key": {
+                    "description": "A unique ID that will be hashed to Heap's event ID keyspace, to prevent duplication of events. Subsequent calls with the same idempotency key will not update data.",
+                    "type": "string"
+                  },
+                  "identity": {
+                    "description": "An identity, typically corresponding to an existing user. If no such identity exists, then a new user will be created with that identity. Case-sensitive string, limited to 255 characters.",
+                    "type": "string"
+                  },
+                  "properties": {
+                    "description": "An object with key-value properties you want associated with the event. Each key and property must either be a number or string with fewer than 1024 characters.",
+                    "properties": {
+                      "example_name": {
+                        "default": "example_value",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "session_id": {
+                    "description": "An identifier corresponding to a user's session",
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "description": "ISO8601 e.g. \"2017-03-10T22:21:56+00:00\". Defaults to the current time if not provided.",
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "description": "The user_id from the Heap SDK. The user_id must be the string representation of a number between zero and 2^53 - 1. user_id may be specified instead of identity, but both cannot be provided at the same time.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "app_id",
+                  "event"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "properties": {},
+                  "type": "object"
+                }
+              }
+            },
+            "description": "200"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "properties": {},
+                  "type": "object"
+                }
+              }
+            },
+            "description": "400"
+          }
+        },
+        "summary": "Track",
+        "x-readme": {
+          "code-samples": [
+            {
+              "code": "curl \\\n  -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"app_id\": \"11\",\n    \"identity\": \"alice@example.com\",\n    \"event\": \"Send Transactional Email\",\n    \"timestamp\": \"2017-03-10T22:21:56+00:00\", \n    \"properties\": {\n      \"subject\": \"Welcome to My App!\",\n      \"variation\": \"A\"\n    }\n  }' \\\n  https://heapanalytics.com/api/track",
+              "language": "curl"
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  },
+  "security": [
+    {}
+  ],
+  "servers": [
+    {
+      "url": "https://heapanalytics.com/"
+    }
+  ],
+  "x-readme-fauxas": true
+}

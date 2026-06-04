@@ -1,0 +1,78 @@
+# Heap Documentation
+
+## Guides
+- [Android Changelog](https://developers.heap.io/docs/android-changelog.md)
+- [Flutter Changelog](https://developers.heap.io/docs/flutter-changelog.md)
+- [Heap Gradle Plugin Changelog](https://developers.heap.io/docs/heap-gradle-plugin-changelog.md)
+- [heap.js 5 Changelog](https://developers.heap.io/docs/heapjs-5-changelog.md)
+- [Classic heap.js Changelog](https://developers.heap.io/docs/heapjs-changelog.md)
+- [Swift iOS Changelog](https://developers.heap.io/docs/ios-changelog.md)
+- [React Native Changelog](https://developers.heap.io/docs/react-changelog.md)
+- [Android Ecosystem quick start](https://developers.heap.io/docs/android-ecosystem-quick-start.md)
+- [Android quick start](https://developers.heap.io/docs/android.md)
+- [Capacitor Bridge quick start](https://developers.heap.io/docs/capacitor-bridge-installation.md)
+- [Flutter quick start](https://developers.heap.io/docs/flutter-quick-start.md)
+- [Hybrid Mobile Apps Installation](https://developers.heap.io/docs/hybrid-mobile-apps.md)
+- [iOS quick start](https://developers.heap.io/docs/ios.md)
+- [React Native quick start](https://developers.heap.io/docs/react-native-quick-start.md)
+- [Swift Ecosystem quick start](https://developers.heap.io/docs/swift-ecosystem-quick-start.md)
+- [Xamarin/Maui quick start](https://developers.heap.io/docs/xamarin-quick-start.md)
+- [Overview](https://developers.heap.io/docs/overview.md)
+- [Electron Installation](https://developers.heap.io/docs/electron.md)
+- [Google Tag Manager (GTM) Installation](https://developers.heap.io/docs/google-tag-manager.md)
+- [Instapage Installation](https://developers.heap.io/docs/instapage.md)
+- [Squarespace Installation](https://developers.heap.io/docs/squarespace.md)
+- [Tumblr Installation](https://developers.heap.io/docs/tumblr-installation.md)
+- [Unbounce Installation](https://developers.heap.io/docs/unbounce.md)
+- [Wordpress Installation](https://developers.heap.io/docs/wordpress.md)
+- [API Reference (heap.js 5)](https://developers.heap.io/docs/api-reference.md)
+- [Web SDK upgrade FAQ](https://developers.heap.io/docs/frequently-asked-questions.md)
+- [Ignoring Sensitive Data and PII](https://developers.heap.io/docs/ignoring-sensitive-data-and-pii.md)
+- [Plugin Framework](https://developers.heap.io/docs/plugin-framework.md)
+- [Plugin Framework - Heap Event Message Schema](https://developers.heap.io/docs/plugin-framework-heap-event-schema.md)
+- [Shadow DOM](https://developers.heap.io/docs/shadowdom.md)
+- [Installation](https://developers.heap.io/docs/web.md)
+- [Android Custom Configuration](https://developers.heap.io/docs/android-custom-configuration.md)
+- [Flutter Custom Configuration](https://developers.heap.io/docs/flutter-custom-configuration.md)
+- [React Native Custom Configuration](https://developers.heap.io/docs/react-native-custom-configuration.md)
+- [Swift Custom Configuration](https://developers.heap.io/docs/swift-custom-configuration.md)
+- [Heap analytics for apps with Contentsquare](https://developers.heap.io/docs/syncing-contentsquare-data-to-heap.md)
+- [Session Replay for apps with Heap analytics](https://developers.heap.io/docs/syncing-heap-data-to-contentsquare.md)
+- [Continuing mobile sessions in WebViews](https://developers.heap.io/docs/continuing-mobile-sessions-in-webviews.md)
+- [Hide sensitive data](https://developers.heap.io/docs/hide-sensitive-data.md)
+- [Manually track events](https://developers.heap.io/docs/manual-event-tracking.md)
+- [Tracking notification interactions](https://developers.heap.io/docs/tracking-notification-interactions.md)
+- [Android SDK Reference](https://developers.heap.io/docs/android-sdk-reference.md)
+- [Flutter SDK Reference](https://developers.heap.io/docs/flutter-sdk-reference.md)
+- [Android Classic Installation](https://developers.heap.io/docs/android-legacy.md)
+- [iOS Classic Installation](https://developers.heap.io/docs/ios-legacy.md)
+- [React Native Classic Installation](https://developers.heap.io/docs/react-legacy.md)
+- [Install Heap.js](https://developers.heap.io/docs/install-heapjs.md)
+- [Track in an iFrame](https://developers.heap.io/docs/installing-heap-in-an-iframe.md)
+- [Track AMP or FBIA pages](https://developers.heap.io/docs/track-amp-or-fbia-pages.md)
+- [Track impressions](https://developers.heap.io/docs/tracking-impressions.md)
+- [React Native SDK Reference](https://developers.heap.io/docs/react-native-sdk-reference.md)
+- [Swift SDK reference](https://developers.heap.io/docs/swift-and-uikit-sdk-reference.md)
+- [How to set up a proxy for Heap](https://developers.heap.io/docs/setup-proxy-for-heap.md)
+- [Track user identity](https://developers.heap.io/docs/using-identify.md)
+
+## API Reference
+- [addEventProperties](https://developers.heap.io/reference/addeventproperties.md): Use this API to send stateful information into Heap as a set of global key-value pairs that get attached to all of a user's subsequent events.
+- [addUserProperties](https://developers.heap.io/reference/adduserproperties.md): This API allows you to attach custom properties at the user level, such as user-level info from your database or demographic info.   Note that these properties are stateless, and only the most recent value is stored. Heap will create a new property if it doesn’t already exist, and will overwrite the previous property value if one already exists with the same name.   The client-side API allows you to add these custom user properties on identified and anonymous users. For best practices and use cases for managing identity, see our developer guide on [Using Identify](https://developers.heap.io/docs/using-identify). For a list of questions to consider when deciding what users to track, see the [Custom User Properties](https://help.heap.io/getting-started/setting-up-heap/enrich-your-dataset-via-apis/#custom-user-properties) section of the Setting Up Heap guide.  Our Looker Actions integration allows you to quickly import property data into Heap. See the  [Looker Actions Integration guide](https://help.heap.io/integrations/other/looker-actions-integration/) to learn more.
+- [identify](https://developers.heap.io/reference/identify.md): This API allows you to attach a unique identity and maintain user histories across sessions, devices, and browsers under a single profile in Heap.
+- [identity](https://developers.heap.io/reference/identity.md): The current user’s identity, if identified. Use identity to link activity between Heap’s client-side and server-side track APIs.
+- [track](https://developers.heap.io/reference/track.md): Use this API to send custom events and associated metadata to Heap that we do not automatically capture, such as purchase information, email sent, and more.
+- [userID](https://developers.heap.io/reference/userid-and-identity.md): Retrieve the current user’s ID. This API is read-only and is primarily used to [QA events With Live data feed](https://help.heap.io/define-analyze/data-management/qa-events-with-live-view/).
+- [API Reference Overview](https://developers.heap.io/reference/api-reference-overview.md)
+- [Add Account Properties](https://developers.heap.io/reference/add-account-properties.md): This API allows you to attach custom account properties to users. An account ID or use of our Salesforce integration is required for this to work. Note that, as your set of accounts and their properties change, you’ll need to periodically call this API with an account ID as well as any account-level properties.  You will need to configure the Account ID setting before using this API to send your account data into Heap. Instructions to complete this and all of the other steps to analyze account data are available in the [Account Health Analysis](https://help.heap.io/analysis-examples/analysis-features/account-health-analysis/) guide.  Our Looker Actions integration allows you to quickly import property data into Heap. See the  [Looker Actions Integration guide](https://help.heap.io/integrations/other/looker-actions-integration/) to learn more.
+- [Add User Properties](https://developers.heap.io/reference/add-user-properties.md): This API allows you to attach custom properties to any identified users from your servers, such as Sign Up Date (in [ISO8601 format](https://help.heap.io/heap-administration/administration-faqs/what-format-do-i-use-to-send-time-as-a-data-type-into-heap/)), Total # Transactions Completed, or Total Dollars Spent.<br><br>Note that Heap will create a new property if it doesn’t already exist, and will overwrite the previous property if one already exists with the same name. If the identity does not exist in Heap, Heap will create it as a user but with no events. Once events come to the user with the same Identity, the two will be merged under one user profile.<br><br>Currently, `heap.AddUserProperties` calls cannot be named all casings of id (ID,Id,iD,id) as it clashes with internal variables.<br><br>Our Looker Actions integration allows you to quickly import property data into Heap. See the  [Looker Actions Integration guide](https://help.heap.io/integrations/other/looker-actions-integration/) to learn more.
+- [Bulk Add Account Properties](https://developers.heap.io/reference/bulk-add-account-properties.md): If you have many custom account properties to attach all at once, you can use this API.
+- [Bulk Add User Properties](https://developers.heap.io/reference/bulk-add-user-properties.md): If you have many custom user properties to attach all at once, you can use this API.
+- [Bulk Track](https://developers.heap.io/reference/bulk-track.md): If you have many custom track events to send at once, you can use this API.
+- [Identify](https://developers.heap.io/reference/identify-1.md): This API allows you to identify users given some anonymous user_id from the Heap SDK and some known identity, such as an email address.  When this call is made, all events associated with the provided user_id are migrated to the user with the provided identity.<br><br>To protect the integrity of your data, we limit the number of identities mapped to a user_id to 1. We also limit the number of user_ids mapped to an identity to 10, over a one-month period.<br><br>As an example, if you send an identify request for user_id `123` and identity `susan`, we will drop a subsequent identify call for user_id `123` and identity `bill`.  Likewise, if you send 10 identify calls with 10 different user_ids for identity `susan` in a one-month period, the 11th user_id for identity `susan` will be ignored.
+- [Server-side APIs Overview](https://developers.heap.io/reference/server-side-apis-overview.md)
+- [Track](https://developers.heap.io/reference/track-1.md): Use this API to send custom events to Heap server-side. We recommend using this for events that need to exactly match your backend, such as completed order transaction info, or events that are not available for Heap to capture on the client-side.<br><br>**NOTE: It is required that you use either the `identity` or `user_id` param, but not both.**
+- [User Deletion (Delete API)](https://developers.heap.io/reference/user-deletion.md): Use this API to delete users from your Heap workspace. This API requires an auth token, which you can generate.
+
+## Pages
+- [404](https://developers.heap.io/404.md)
