@@ -6,7 +6,7 @@
   <img alt="CI" src="https://github.com/rivit-studio/heap-mcp-server/actions/workflows/ci.yml/badge.svg">
   <img alt="MCP" src="https://img.shields.io/badge/Model_Context_Protocol-server-5A45FF">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6">
-  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D18-339933">
+  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D22-339933">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue">
   <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen">
 </p>
@@ -204,7 +204,7 @@ sequenceDiagram
 
 ## Requirements
 
-- **Node.js ≥ 18**
+- **Node.js ≥ 22**
 - A **Heap account** with an environment (app) ID. An **API key** is needed only for the deletion tools.
 - An **MCP client** (e.g. Claude Desktop), or the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) for testing.
 
@@ -531,7 +531,7 @@ heap-mcp-server/
 ├── .heap-api-snapshots/        # committed baseline of Heap's OpenAPI specs
 ├── .github/
 │   ├── workflows/
-│   │   ├── ci.yml              # build + test (Node 18/20/22) and Docker build
+│   │   ├── ci.yml              # build + test (Node 22/24/26) and Docker build
 │   │   ├── publish.yml         # npm publish on GitHub Release
 │   │   └── heap-api-watch.yml  # scheduled Heap API drift check -> issue
 │   ├── ISSUE_TEMPLATE/         # bug report, feature request, chooser config
@@ -581,7 +581,7 @@ npm run test:only  # run tests against the existing build (skip rebuild)
 
 Because the integration tests use a local mock and the fake driver, they never touch a real Heap workspace or warehouse and need no credentials.
 
-**Continuous integration.** `.github/workflows/ci.yml` runs the build and test suite on Node 18, 20, and 22, and builds the Docker image, on every push and pull request to `main`.
+**Continuous integration.** `.github/workflows/ci.yml` runs the build and test suite on Node 22, 24, and 26, and builds the Docker image, on every push and pull request to `main`.
 
 ## Staying current with the Heap API
 
